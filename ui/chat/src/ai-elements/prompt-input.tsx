@@ -1099,7 +1099,7 @@ export const PromptInputTextarea = ({
     <textarea
       ref={localRef}
       className={cn(
-        "max-h-52 flex-1 resize-none border-none bg-transparent text-base leading-[1.2] py-0.5 text-foreground outline-none transition-[height] duration-100 ease-out placeholder:text-muted-foreground/50",
+        "max-h-52 min-h-9 flex-1 resize-none border-none bg-transparent text-base leading-normal py-1 text-foreground outline-none transition-[height] duration-100 ease-out placeholder:text-muted-foreground/50 selection:bg-primary/15 selection:text-foreground",
         className,
       )}
       name="message"

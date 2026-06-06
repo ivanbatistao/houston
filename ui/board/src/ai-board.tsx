@@ -175,6 +175,8 @@ export interface AIBoardProps {
   onDictate?: () => void
   /** True while speech recognition is active. Animates the mic button. */
   isDictating?: boolean
+  /** Normalized (0–1) frequency levels for the audiogram. Forwarded to ChatPanel. */
+  audioLevels?: number[]
   /** Left-pane layout. "board" = kanban columns (default); "list" = a single
    *  column-less vertical list (used by the Archived missions tab). */
   layout?: "board" | "list"
@@ -285,6 +287,7 @@ export function AIBoard({
   composerLabels,
   onDictate,
   isDictating,
+  audioLevels,
   layout = "board",
   listAlign,
   searchSnippets,
@@ -642,6 +645,7 @@ export function AIBoard({
           composerLabels={composerLabels}
           onDictate={onDictate}
           isDictating={isDictating}
+          audioLevels={audioLevels}
         />
       </div>
     </KanbanDetailPanel>

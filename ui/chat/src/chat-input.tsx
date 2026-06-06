@@ -65,6 +65,7 @@ export interface ChatInputProps {
   labels?: ChatComposerLabels;
   onDictate?: () => void;
   isDictating?: boolean;
+  audioLevels?: number[];
 }
 
 export function ChatInput({
@@ -89,6 +90,7 @@ export function ChatInput({
   labels,
   onDictate,
   isDictating,
+  audioLevels,
 }: ChatInputProps) {
   const [text, setText] = useControllable(value, onValueChange, "");
   const isTextControlled = value !== undefined;
@@ -184,6 +186,7 @@ export function ChatInput({
             onStop={onStop}
             onDictate={onDictate}
             isDictating={isDictating}
+            audioLevels={audioLevels}
             dictateLabel={labels?.dictateLabel}
           />
         </PromptInput>

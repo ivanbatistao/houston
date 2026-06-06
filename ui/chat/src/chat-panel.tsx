@@ -66,6 +66,7 @@ export function ChatPanel({
   composerLabels,
   onDictate,
   isDictating,
+  audioLevels,
 }: ChatPanelProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const status = statusProp ?? deriveStatus(feedItems, isLoading);
@@ -194,6 +195,7 @@ export function ChatPanel({
           labels={composerLabels}
           onDictate={onDictate}
           isDictating={isDictating}
+          audioLevels={audioLevels}
         />
       )}
     </div>

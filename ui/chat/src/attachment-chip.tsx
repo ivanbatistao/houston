@@ -110,6 +110,8 @@ export interface ComposerTrailingProps {
   onStop?: () => void;
   onDictate?: () => void;
   isDictating?: boolean;
+  /** Normalized (0–1) frequency levels for the audiogram. Shown when isDictating. */
+  audioLevels?: number[];
   dictateLabel?: string;
 }
 
@@ -126,8 +128,10 @@ export function ComposerTrailing({
   onStop,
   onDictate,
   isDictating,
+  audioLevels,
   dictateLabel = "Dictate",
 }: ComposerTrailingProps) {
+  const showAudiogram = isDictating && audioLevels && audioLevels.length > 0;
   return (
     <div className="flex items-center gap-1.5 [grid-area:trailing]">
       {status === "ready" && (
@@ -137,12 +141,24 @@ export function ComposerTrailing({
           className={cn(
             "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
             isDictating
-              ? "bg-red-100 text-red-500 animate-pulse"
+              ? "bg-red-100 text-red-500"
               : "text-muted-foreground hover:bg-accent",
           )}
           aria-label={dictateLabel}
         >
-          <MicIcon className="size-5" />
+          {showAudiogram ? (
+            <div className="flex items-center gap-[2.5px] h-5">
+              {audioLevels.map((level, i) => (
+                <div
+                  key={i}
+                  className="w-[3px] rounded-full bg-red-500 transition-[height] duration-75"
+                  style={{ height: `${Math.max(3, Math.round(level * 18))}px` }}
+                />
+              ))}
+            </div>
+          ) : (
+            <MicIcon className={cn("size-5", isDictating && "animate-pulse")} />
+          )}
         </button>
       )}
       <PromptInputSubmit

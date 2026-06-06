@@ -35,11 +35,11 @@ export function MissionBoard({ source }: { source: BoardSource }) {
   const addToast = useUIStore((s) => s.addToast);
   const queuedLabels = useQueuedMessageLabels();
   const { cardLabels, composerLabels } = useBoardLabels();
-  const { drafts, onDraftChange } = useBoardDrafts();
+  const { drafts, onDraftChange: storeDraftChange } = useBoardDrafts();
 
-  const { isDictating, onDictate } = useBoardVoiceDictation(
+  const { isDictating, onDictate, audioLevels, onDraftChange } = useBoardVoiceDictation(
     source.selectedSessionKey,
-    onDraftChange,
+    storeDraftChange,
   );
 
   // Columns: base layout (single source of truth for status→section) plus the
@@ -197,6 +197,7 @@ export function MissionBoard({ source }: { source: BoardSource }) {
           transformContent={panel.transformContent}
           onDictate={onDictate}
           isDictating={isDictating}
+          audioLevels={audioLevels}
         />
       </div>
       {panel.pickerDialog}

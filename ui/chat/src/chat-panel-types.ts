@@ -83,4 +83,6 @@ export interface ChatPanelProps {
   composerLabels?: ChatComposerLabels;
   onDictate?: () => void;
   isDictating?: boolean;
+  /** Normalized (0–1) frequency levels for the audiogram. Length determines bar count. */
+  audioLevels?: number[];
 }
