@@ -110,5 +110,16 @@
     "save": "Guardar",
     "saving": "Guardando...",
     "dismiss": "Descartar"
+  },
+  "artifact": {
+    "open": "Abrir",
+    "edit": "Editar",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "cancel": "Cancelar",
+    "saveFailed": "No se pudo guardar el archivo",
+    "csvMoreRows_one": "y 1 fila más",
+    "csvMoreRows_other": "y {{count}} filas más",
+    "showMore": "Ver más"
   }
 }
