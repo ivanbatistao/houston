@@ -5,6 +5,12 @@
     "dropTitle": "Drop your files",
     "dropDescription": "Drop them here to add them to the conversation",
     "imagePasteUnavailable": "Couldn't read the pasted image. Try dragging the file in instead.",
+    "dictate": "Dictate",
+    "dictateUnavailable": "Voice input is not available here.",
+    "dictatePermissionDenied": "Microphone access was denied. Allow Houston in System Settings > Privacy & Security > Microphone.",
+    "dictateServiceUnavailable": "Speech recognition is not available. Turn on Siri and Dictation in System Settings.",
+    "dictateNoSpeech": "Did not catch any speech. Try again.",
+    "dictateFailed": "Voice input failed. Try again.",
     "addFiles": "Add files"
   },
   "queue": {

@@ -12,6 +12,7 @@ import {
   XIcon,
   FileIcon as LucideFileIcon,
 } from "lucide-react";
+import { cn } from "@houston-ai/core";
 import { PromptInputSubmit } from "./ai-elements/prompt-input";
 
 export function getExt(name: string): string {
@@ -107,6 +108,9 @@ export interface ComposerTrailingProps {
   status: "ready" | "streaming" | "submitted";
   hasContent: boolean;
   onStop?: () => void;
+  onDictate?: () => void;
+  isDictating?: boolean;
+  dictateLabel?: string;
 }
 
 /**
@@ -116,14 +120,27 @@ export interface ComposerTrailingProps {
  * send, which keeps the affordance stable in the same spot. The previous
  * "voice mode" wave icon was removed because it wasn't wired to anything.
  */
-export function ComposerTrailing({ status, hasContent, onStop }: ComposerTrailingProps) {
+export function ComposerTrailing({
+  status,
+  hasContent,
+  onStop,
+  onDictate,
+  isDictating,
+  dictateLabel = "Dictate",
+}: ComposerTrailingProps) {
   return (
     <div className="flex items-center gap-1.5 [grid-area:trailing]">
       {status === "ready" && (
         <button
           type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-accent transition-colors"
-          aria-label="Dictate"
+          onClick={onDictate}
+          className={cn(
+            "flex h-9 w-9 items-center justify-center rounded-full transition-colors",
+            isDictating
+              ? "bg-red-100 text-red-500 animate-pulse"
+              : "text-muted-foreground hover:bg-accent",
+          )}
+          aria-label={dictateLabel}
         >
           <MicIcon className="size-5" />
         </button>

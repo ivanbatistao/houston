@@ -27,6 +27,7 @@ export function useBoardLabels(): {
       dropTitle: t("chat:composer.dropTitle"),
       dropDescription: t("chat:composer.dropDescription"),
       imagePasteUnavailable: t("chat:composer.imagePasteUnavailable"),
+      dictateLabel: t("chat:composer.dictate"),
     },
   };
 }

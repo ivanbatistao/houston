@@ -63,6 +63,8 @@ export interface ChatInputProps {
   /** Enables submit even when text/files are empty. */
   canSendEmpty?: boolean;
   labels?: ChatComposerLabels;
+  onDictate?: () => void;
+  isDictating?: boolean;
 }
 
 export function ChatInput({
@@ -85,6 +87,8 @@ export function ChatInput({
   queuedLabels,
   canSendEmpty = false,
   labels,
+  onDictate,
+  isDictating,
 }: ChatInputProps) {
   const [text, setText] = useControllable(value, onValueChange, "");
   const isTextControlled = value !== undefined;
@@ -178,6 +182,9 @@ export function ChatInput({
             status={status}
             hasContent={hasContent}
             onStop={onStop}
+            onDictate={onDictate}
+            isDictating={isDictating}
+            dictateLabel={labels?.dictateLabel}
           />
         </PromptInput>
 

@@ -64,6 +64,8 @@ export function ChatPanel({
   canSendEmpty,
   composerOverride,
   composerLabels,
+  onDictate,
+  isDictating,
 }: ChatPanelProps) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const status = statusProp ?? deriveStatus(feedItems, isLoading);
@@ -190,6 +192,8 @@ export function ChatPanel({
           queuedLabels={queuedLabels}
           canSendEmpty={canSendEmpty}
           labels={composerLabels}
+          onDictate={onDictate}
+          isDictating={isDictating}
         />
       )}
     </div>

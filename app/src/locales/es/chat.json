@@ -5,6 +5,12 @@
     "dropTitle": "Suelta tus archivos",
     "dropDescription": "Suéltalos aquí para añadirlos a la conversación",
     "imagePasteUnavailable": "No se pudo leer la imagen pegada. Prueba a arrastrar el archivo.",
+    "dictate": "Dictar",
+    "dictateUnavailable": "La entrada de voz no está disponible aquí.",
+    "dictatePermissionDenied": "Se denegó el acceso al micrófono. Permite Houston en Configuración del Sistema > Privacidad y seguridad > Micrófono.",
+    "dictateServiceUnavailable": "El reconocimiento de voz no está disponible. Activa Siri y Dictado en Configuración del Sistema.",
+    "dictateNoSpeech": "No se detectó voz. Inténtalo de nuevo.",
+    "dictateFailed": "Falló la entrada de voz. Inténtalo de nuevo.",
     "addFiles": "Agregar archivos"
   },
   "queue": {

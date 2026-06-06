@@ -28,6 +28,8 @@ export interface ChatComposerLabels {
   /** Shown when an image was on the clipboard but the webview never
    *  handed over the bytes (Linux Wayland WebKitGTK). */
   imagePasteUnavailable?: string;
+  /** Mic button aria-label while the composer is idle. */
+  dictateLabel?: string;
 }
 
 export interface ChatPanelProps {
@@ -79,4 +81,6 @@ export interface ChatPanelProps {
   renderLink?: ChatMessagesProps["renderLink"];
   composerOverride?: ReactNode;
   composerLabels?: ChatComposerLabels;
+  onDictate?: () => void;
+  isDictating?: boolean;
 }

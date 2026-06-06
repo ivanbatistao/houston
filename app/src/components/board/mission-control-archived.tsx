@@ -10,6 +10,9 @@ import { HoustonThinkingIndicator } from "../shell/experience-card";
 import { AgentPanelAvatar } from "../shell/agent-panel-avatar";
 import { useAgentChatPanel } from "../use-agent-chat-panel";
 import { useAttachmentRejectionDialog } from "../attachment-rejection-dialog";
+import { useBoardDrafts } from "./use-board-drafts";
+import { useBoardLabels } from "./use-board-labels";
+import { useBoardVoiceDictation } from "./use-board-voice-dictation";
 import { useMissionSearch } from "../use-mission-search";
 import { MissionControlToolbar } from "../mission-control-toolbar";
 import { ArchivedEmptyState } from "../tabs/archived-tab-search";
@@ -39,6 +42,8 @@ export function MissionControlArchived({
 
   const data = useMissionControlArchived(agents);
   const attachmentValidation = useAttachmentRejectionDialog();
+  const { drafts, onDraftChange } = useBoardDrafts();
+  const { composerLabels } = useBoardLabels();
 
   const [filterPath, setFilterPath] = useState("");
   const [search, setSearch] = useState("");
@@ -70,6 +75,7 @@ export function MissionControlArchived({
   const selectedSessionKey = selectedItem
     ? (selectedItem.metadata?.sessionKey as string | undefined) ?? `activity-${selectedItem.id}`
     : null;
+  const { isDictating, onDictate } = useBoardVoiceDictation(selectedSessionKey, onDraftChange);
 
   const panel = useAgentChatPanel({
     agent: activeAgent,
@@ -132,6 +138,11 @@ export function MissionControlArchived({
           }
           onPanelOpenChange={setMissionPanelOpen}
           onOpenLink={(url) => activeAgent && openAgentHref(url, activeAgent.folderPath)}
+          drafts={drafts}
+          onDraftChange={onDraftChange}
+          composerLabels={composerLabels}
+          onDictate={onDictate}
+          isDictating={isDictating}
           prepareAttachments={attachmentValidation.prepareAttachments}
           onAttachmentRejections={attachmentValidation.onAttachmentRejections}
           thinkingIndicator={<HoustonThinkingIndicator />}

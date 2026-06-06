@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AIBoard } from "@houston-ai/board";
 
 import { useUIStore } from "../../stores/ui";
+import { useBoardVoiceDictation } from "./use-board-voice-dictation";
 import { openAgentHref } from "../../lib/open-href";
 import { buildMissionBoardColumns } from "../mission-board-columns";
 import { useDetailPanelContainer } from "../shell/detail-panel-context";
@@ -35,6 +36,11 @@ export function MissionBoard({ source }: { source: BoardSource }) {
   const queuedLabels = useQueuedMessageLabels();
   const { cardLabels, composerLabels } = useBoardLabels();
   const { drafts, onDraftChange } = useBoardDrafts();
+
+  const { isDictating, onDictate } = useBoardVoiceDictation(
+    source.selectedSessionKey,
+    onDraftChange,
+  );
 
   // Columns: base layout (single source of truth for status→section) plus the
   // Done "archive all" / Needs-you "select all" header actions when the source
@@ -189,6 +195,8 @@ export function MissionBoard({ source }: { source: BoardSource }) {
           renderTurnSummary={panel.renderTurnSummary}
           renderLink={panel.renderLink}
           transformContent={panel.transformContent}
+          onDictate={onDictate}
+          isDictating={isDictating}
         />
       </div>
       {panel.pickerDialog}

@@ -52,6 +52,7 @@
     "macOS": {
       "signingIdentity": "-",
       "entitlements": "entitlements.plist",
+      "infoPlist": "Info.plist",
       "minimumSystemVersion": "10.15",
       "dmg": {
         "background": "assets/dmg-background.tiff",

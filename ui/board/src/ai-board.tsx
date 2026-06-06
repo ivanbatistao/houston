@@ -171,6 +171,10 @@ export interface AIBoardProps {
   composerOverride?: ReactNode
   /** Translated labels for the file-drop overlay and composer notices. Forwarded to ChatPanel. */
   composerLabels?: ChatPanelProps["composerLabels"]
+  /** Called when the user clicks the mic button to start/stop dictation. */
+  onDictate?: () => void
+  /** True while speech recognition is active. Animates the mic button. */
+  isDictating?: boolean
   /** Left-pane layout. "board" = kanban columns (default); "list" = a single
    *  column-less vertical list (used by the Archived missions tab). */
   layout?: "board" | "list"
@@ -279,6 +283,8 @@ export function AIBoard({
   cardLabels,
   composerOverride,
   composerLabels,
+  onDictate,
+  isDictating,
   layout = "board",
   listAlign,
   searchSnippets,
@@ -634,6 +640,8 @@ export function AIBoard({
           canSendEmpty={canSendEmpty}
           composerOverride={composerOverride}
           composerLabels={composerLabels}
+          onDictate={onDictate}
+          isDictating={isDictating}
         />
       </div>
     </KanbanDetailPanel>
