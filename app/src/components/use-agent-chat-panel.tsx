@@ -37,7 +37,7 @@ import {
 
 import { useFeedStore } from "../stores/feeds";
 import { useUIStore } from "../stores/ui";
-import { useActivity, useSkills } from "../hooks/queries";
+import { useActivity, useSkills, useAddLearning } from "../hooks/queries";
 import {
   tauriActivity,
   tauriAttachments,
@@ -54,6 +54,9 @@ import { useFileToolRenderer } from "../hooks/use-file-tool-renderer";
 import { ComposioLinkCard } from "./composio-link-card";
 import { parseComposioToolkitFromHref } from "./composio-card-state";
 import { withComposioWaitingFooter } from "./composio-waiting-footer";
+import { usesMemory, extractLearningCandidate } from "../lib/memory-signals";
+import { MemoryChip } from "./memory-chip";
+import { SaveMemoryCard } from "./save-memory-card";
 import {
   ComposioSigninCard,
   isComposioSigninHref,
@@ -163,6 +166,8 @@ export function useAgentChatPanel({
   const pushFeedItem = useFeedStore((s) => s.pushFeedItem);
 
   const path = agent?.folderPath ?? null;
+  const addLearning = useAddLearning(path ?? "");
+  const [dismissedCandidates, setDismissedCandidates] = useState<Set<string>>(new Set());
   const agentModes = agentDef?.config.agents;
 
   // ── Activity / agent tier model resolution ─────────────────────────────
@@ -362,8 +367,22 @@ export function useAgentChatPanel({
   // assistant message that links an integration (issue #412), rather than
   // inline beside the card wherever the link happened to land.
   const transformContent = useCallback(
-    (content: string) => withComposioWaitingFooter({ content }),
-    [],
+    (content: string) => {
+      const before = usesMemory(content) ? <MemoryChip /> : undefined;
+      const candidate = extractLearningCandidate(content);
+      const saveCard =
+        candidate && !dismissedCandidates.has(candidate) && path ? (
+          <SaveMemoryCard
+            candidate={candidate}
+            onSave={() => addLearning.mutateAsync(candidate)}
+            onDismiss={() =>
+              setDismissedCandidates((prev) => new Set([...prev, candidate]))
+            }
+          />
+        ) : undefined;
+      return withComposioWaitingFooter({ content, before, extra: saveCard });
+    },
+    [addLearning, dismissedCandidates, path],
   );
 
   // ── File-tool rendering (per-agent path) ──────────────────────────────

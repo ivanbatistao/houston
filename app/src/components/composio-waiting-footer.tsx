@@ -57,12 +57,14 @@ function ComposioWaitingFooter({ toolkits }: { toolkits: string[] }) {
  */
 export function withComposioWaitingFooter(result: {
   content: string;
+  before?: ReactNode;
   extra?: ReactNode;
-}): { content: string; extra?: ReactNode } {
+}): { content: string; before?: ReactNode; extra?: ReactNode } {
   const toolkits = extractComposioToolkits(result.content);
   if (toolkits.length === 0) return result;
   return {
     content: result.content,
+    before: result.before,
     extra: (
       <>
         {result.extra}

@@ -33,6 +33,7 @@ export interface ChatMessagesProps {
   thinkingIndicator: ReactNode;
   transformContent?: (content: string) => {
     content: string;
+    before?: ReactNode;
     extra?: ReactNode;
   };
   toolLabels?: ToolsAndCardsProps["toolLabels"];
@@ -169,6 +170,7 @@ export function ChatMessages({
                   const displayContent = transformed?.content ?? msg.content;
                   return (
                     <MessageContent>
+                      {transformed?.before}
                       <MessageResponse
                         isAnimating={streaming}
                         onOpenLink={onOpenLink}

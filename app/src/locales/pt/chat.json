@@ -103,5 +103,12 @@
   },
   "filesUpdated_one": "1 arquivo atualizado",
   "filesUpdated_other": "{{count}} arquivos atualizados",
-  "contextCompacted": "Resumimos a conversa anterior para o chat poder continuar"
+  "contextCompacted": "Resumimos a conversa anterior para o chat poder continuar",
+  "memory": {
+    "usingMemory": "Usando preferência salva",
+    "savePrompt": "Quer que eu me lembre disso?",
+    "save": "Salvar",
+    "saving": "Salvando...",
+    "dismiss": "Dispensar"
+  }
 }
