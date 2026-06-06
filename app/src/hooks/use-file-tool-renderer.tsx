@@ -2,8 +2,10 @@ import { useCallback, useMemo } from "react";
 import { ToolBlock } from "@houston-ai/chat";
 import type { ToolEntry, TurnEndSummary } from "@houston-ai/chat";
 import { FileCard } from "../components/file-card";
+import { ArtifactPreview } from "../components/artifact-preview";
 import { TurnFileSummary } from "../components/turn-file-summary";
 import { buildTurnSummaryItems, isUserVisibleFilePath } from "../lib/turn-summary-items";
+import { detectKind } from "../lib/artifact-kind";
 
 /** Tool short names that produce files the user might want to open. */
 const FILE_TOOLS = new Set(["Write", "Edit", "MultiEdit"]);
@@ -15,7 +17,7 @@ function shortName(name: string): string {
 /**
  * Returns `isSpecialTool`, `renderToolResult`, and `renderTurnSummary`
  * callbacks for rendering clickable file cards on Write/Edit tool results
- * and an aggregated end-of-turn file summary.
+ * and an aggregated end-of-turn file summary with inline artifact previews.
  */
 export function useFileToolRenderer(agentPath: string) {
   const isSpecialTool = useCallback(
@@ -48,8 +50,40 @@ export function useFileToolRenderer(agentPath: string) {
         agentPath,
         summary.fileChanges,
       );
-      if (items.length === 0) return null;
-      return <TurnFileSummary items={items} agentPath={agentPath} />;
+
+      // Collect unique previewable file paths written during the turn.
+      const seen = new Set<string>();
+      const previewPaths: string[] = [];
+      for (const tool of summary.tools) {
+        if (!tool.result || tool.result.is_error) continue;
+        if (!FILE_TOOLS.has(shortName(tool.name))) continue;
+        const inp = tool.input as Record<string, unknown> | null | undefined;
+        const fp = inp?.file_path as string | undefined;
+        if (fp && !seen.has(fp) && isUserVisibleFilePath(fp) && detectKind(fp) !== "unknown") {
+          seen.add(fp);
+          previewPaths.push(fp);
+        }
+      }
+
+      // When artifact previews exist, hide the "new files" chips — previews already
+      // show the file with an Open button. Keep semantic updates and modified-file entries.
+      const turnSummaryItems =
+        previewPaths.length > 0
+          ? items.filter((item) => item.kind !== "file" || item.change !== "created")
+          : items;
+
+      if (turnSummaryItems.length === 0 && previewPaths.length === 0) return null;
+
+      return (
+        <div className="space-y-2">
+          {turnSummaryItems.length > 0 && (
+            <TurnFileSummary items={turnSummaryItems} agentPath={agentPath} />
+          )}
+          {previewPaths.map((fp) => (
+            <ArtifactPreview key={fp} filePath={fp} agentPath={agentPath} />
+          ))}
+        </div>
+      );
     },
     [agentPath],
   );

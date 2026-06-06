@@ -103,5 +103,23 @@
   },
   "filesUpdated_one": "1 file updated",
   "filesUpdated_other": "{{count}} files updated",
-  "contextCompacted": "Earlier conversation summarized so the chat can keep going"
+  "contextCompacted": "Earlier conversation summarized so the chat can keep going",
+  "memory": {
+    "usingMemory": "Using saved preference",
+    "savePrompt": "Want me to remember this?",
+    "save": "Save",
+    "saving": "Saving...",
+    "dismiss": "Dismiss"
+  },
+  "artifact": {
+    "open": "Open",
+    "edit": "Edit",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "saveFailed": "Failed to save file",
+    "csvMoreRows_one": "and 1 more row",
+    "csvMoreRows_other": "and {{count}} more rows",
+    "showMore": "Show more"
+  }
 }

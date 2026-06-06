@@ -103,5 +103,16 @@
   },
   "filesUpdated_one": "1 arquivo atualizado",
   "filesUpdated_other": "{{count}} arquivos atualizados",
-  "contextCompacted": "Resumimos a conversa anterior para o chat poder continuar"
+  "contextCompacted": "Resumimos a conversa anterior para o chat poder continuar",
+  "artifact": {
+    "open": "Abrir",
+    "edit": "Editar",
+    "save": "Salvar",
+    "saving": "Salvando...",
+    "cancel": "Cancelar",
+    "saveFailed": "Não foi possível salvar o arquivo",
+    "csvMoreRows_one": "e mais 1 linha",
+    "csvMoreRows_other": "e mais {{count}} linhas",
+    "showMore": "Ver mais"
+  }
 }
